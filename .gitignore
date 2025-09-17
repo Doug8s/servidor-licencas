@@ -1,0 +1,10 @@
+ Arquivos do Node
+node_modules
+npm-debug.log
+
+# Arquivos de ambiente
+.env
+
+# Banco de dados local
+*.db
+*.db-journal
