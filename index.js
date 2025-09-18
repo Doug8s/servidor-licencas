@@ -1,4 +1,4 @@
-// Conteúdo para o arquivo: servidor-licencas/index.js - VERSÃO FINAL E CORRIGIDA
+// Conteúdo para o arquivo: servidor-licencas/index.js - VERSÃO FINAL
 
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
@@ -7,9 +7,9 @@ const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
 
-// Rota para "acordar" o servidor
+// Rota para "acordar" o servidor e verificar se está online
 app.get("/", (req, res) => {
-    res.send("Servidor de licenças está no ar.");
+    res.send("Servidor de licenças está no ar e funcionando.");
 });
 
 // Rota de ativação
