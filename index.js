@@ -1,4 +1,4 @@
-// Conteúdo para o arquivo: servidor-licencas/index.js
+// Conteúdo para o arquivo: servidor-licencas/index.js - VERSÃO FINAL E CORRIGIDA
 
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
@@ -7,8 +7,12 @@ const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
 
-// Esta é a única rota da nossa API.
-// O seu App Desktop vai chamar esta rota para tentar ativar.
+// Rota para "acordar" o servidor
+app.get("/", (req, res) => {
+    res.send("Servidor de licenças está no ar.");
+});
+
+// Rota de ativação
 app.post('/api/activate', async (req, res) => {
     const { key, machineId } = req.body;
 
@@ -21,23 +25,18 @@ app.post('/api/activate', async (req, res) => {
             where: { key: key },
         });
 
-        // 1. A chave existe?
         if (!license) {
             return res.status(404).json({ success: false, message: 'Chave de licença não encontrada.' });
         }
 
-        // 2. A chave já foi ativada em outra máquina?
         if (license.isActivated && license.machineId !== machineId) {
             return res.status(403).json({ success: false, message: 'Esta chave já foi ativada em outro computador.' });
         }
 
-        // 3. Se a chave já foi ativada nesta mesma máquina, apenas confirme que está tudo OK.
         if (license.isActivated && license.machineId === machineId) {
             return res.status(200).json({ success: true, message: 'Licença revalidada com sucesso.' });
         }
 
-        // 4. Se chegou até aqui, é uma ativação nova e válida!
-        // Atualizamos o banco de dados com o ID da máquina.
         await prisma.license.update({
             where: { key: key },
             data: {
@@ -50,11 +49,11 @@ app.post('/api/activate', async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: 'Ocorreu um erro no servidor.' });
+        return res.status(500).json({ success: false, message: 'Ocorreu um erro interno no servidor.' });
     }
 });
 
-const PORT = 3003; // Usaremos uma porta diferente para não conflitar com seu app
+const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
-    console.log(`Servidor de licenciamento rodando em http://localhost:${PORT}`);
+    console.log(`Servidor de licenciamento rodando na porta ${PORT}`);
 });

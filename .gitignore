@@ -8,3 +8,4 @@ npm-debug.log
 # Banco de dados local
 *.db
 *.db-journal
+/generated/prisma

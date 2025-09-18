@@ -1,18 +1,18 @@
-// Conteúdo para o arquivo: servidor-licencas/prisma/schema.prisma
+// Conteúdo para o arquivo: prisma/schema.prisma - VERSÃO POSTGRESQL
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./licenses.db"
+  provider = "postgresql" // ALTERADO DE "sqlite" PARA "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model License {
   id          Int      @id @default(autoincrement())
-  key         String   @unique // A chave que você vai dar ao cliente (ex: MEUAPP-1234-ABCD)
-  machineId   String?  @unique // A "impressão digital" do PC do cliente, salvo após a ativação
+  key         String   @unique
+  machineId   String?  @unique
   isActivated Boolean  @default(false)
   createdAt   DateTime @default(now())
 }

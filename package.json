@@ -1,23 +1,22 @@
 {
   "name": "servidor-licencas",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@prisma/client": "^6.16.2",
-    "express": "^5.1.0",
-    "prisma": "^6.16.2"
+    "express": "^4.19.2"
   },
   "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/node": "^24.5.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "prisma": "^6.16.2",
+    "supabase": "^1.187.3"
   }
 }
