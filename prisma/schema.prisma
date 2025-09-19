@@ -1,11 +1,11 @@
-// Conteúdo para o arquivo: prisma/schema.prisma - VERSÃO POSTGRESQL
+// Conteúdo para o arquivo: prisma/schema.prisma - VERSÃO FINAL DE PRODUÇÃO
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql" // ALTERADO DE "sqlite" PARA "postgresql"
+  provider = "postgresql" // ALTERADO PARA POSTGRESQL
   url      = env("DATABASE_URL")
 }
 
