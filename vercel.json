@@ -12,5 +12,5 @@
       "dest": "index.js"
     }
   ],
-  "buildCommand": "prisma generate && npm install"  // Isso garante que o Prisma funcione no Vercel
+  "buildCommand": "prisma generate && npm install"
 }
