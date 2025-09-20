@@ -19,6 +19,7 @@ app.post('/api/activate', async (req, res) => {
     }
 
     try {
+        console.log(`Tentando ativar key: ${key} para machineId: ${machineId}`); // Log para ajudar a debugar
         const license = await prisma.license.findUnique({
             where: { key: key },
         });
@@ -43,12 +44,13 @@ app.post('/api/activate', async (req, res) => {
             },
         });
 
+        console.log(`Licença ativada com sucesso para key: ${key}`); // Log de sucesso
         return res.status(200).json({ success: true, message: 'Aplicativo ativado com sucesso!' });
 
     } catch (error) {
-        console.error('Erro na rota /api/activate:', error);
+        console.error('Erro na rota /api/activate:', error); // Log detalhado do erro
         return res.status(500).json({ success: false, message: 'Ocorreu um erro interno no servidor.' });
     }
 });
 
-module.exports = app; // Exporta o app como handler para o Vercel
+module.exports = app; // Essa linha faz o Vercel funcionar corretamente (sem isso, dá erro 500)
