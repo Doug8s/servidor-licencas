@@ -46,12 +46,9 @@ app.post('/api/activate', async (req, res) => {
         return res.status(200).json({ success: true, message: 'Aplicativo ativado com sucesso!' });
 
     } catch (error) {
-        console.error(error);
+        console.error('Erro na rota /api/activate:', error);
         return res.status(500).json({ success: false, message: 'Ocorreu um erro interno no servidor.' });
     }
 });
 
-const PORT = process.env.PORT || 3003;
-app.listen(PORT, () => {
-    console.log(`Servidor de licenciamento rodando na porta ${PORT}`);
-});
+module.exports = app; // Exporta o app como handler para o Vercel
